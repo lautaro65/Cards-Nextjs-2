@@ -1,43 +1,47 @@
-"use client"
+"use client";
 
-import React, { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowUpRight, Sparkles, Beer } from 'lucide-react'
+import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { ArrowUpRight, Sparkles, Beer } from "lucide-react";
+import Image from "next/image";
 
 interface InnovativeCardProps {
-  title: string
-  description: string
+  title: string;
+  description: string;
 }
 
-const InnovativeCard: React.FC<InnovativeCardProps> = ({ title, description }) => {
-  const [isFlipped, setIsFlipped] = useState(false)
-  const [count, setCount] = useState(0)
-  const [isHovering, setIsHovering] = useState(false)
-  const [isSparkleActive, setIsSparkleActive] = useState(false)
-  const [beerCount, setBeerCount] = useState(0)
+const InnovativeCard: React.FC<InnovativeCardProps> = ({
+  title,
+  description,
+}) => {
+  const [isFlipped, setIsFlipped] = useState(false);
+  const [count, setCount] = useState(0);
+  const [isHovering, setIsHovering] = useState(false);
+  const [isSparkleActive, setIsSparkleActive] = useState(false);
+  const [beerCount, setBeerCount] = useState(0);
 
   useEffect(() => {
     if (isHovering) {
       const interval = setInterval(() => {
-        setCount((prevCount) => (prevCount + 1) % 100)
-      }, 100)
-      return () => clearInterval(interval)
+        setCount((prevCount) => (prevCount + 1) % 100);
+      }, 100);
+      return () => clearInterval(interval);
     }
-  }, [isHovering])
+  }, [isHovering]);
 
   const handleSparkleClick = (e: React.MouseEvent) => {
-    e.stopPropagation() // Previene que la tarjeta se voltee
-    setIsSparkleActive(prev => !prev)
-  }
+    e.stopPropagation(); // Previene que la tarjeta se voltee
+    setIsSparkleActive((prev) => !prev);
+  };
 
   const handleBeerClick = (e: React.MouseEvent) => {
-    e.stopPropagation() // Previene que la tarjeta se voltee
-    setBeerCount(prev => prev + 1)
+    e.stopPropagation(); // Previene que la tarjeta se voltee
+    setBeerCount((prev) => prev + 1);
     // Efecto de vibración en la tarjeta
-    const card = document.querySelector('.card-container')
-    card?.classList.add('shake')
-    setTimeout(() => card?.classList.remove('shake'), 500)
-  }
+    const card = document.querySelector(".card-container");
+    card?.classList.add("shake");
+    setTimeout(() => card?.classList.remove("shake"), 500);
+  };
 
   return (
     <div className="w-full max-w-md mx-auto" style={{ perspective: "1000px" }}>
@@ -50,7 +54,7 @@ const InnovativeCard: React.FC<InnovativeCardProps> = ({ title, description }) =
         style={{
           transformStyle: "preserve-3d",
           transform: `rotateY(${isFlipped ? 180 : 0}deg)`,
-          transition: "transform 0.6s"
+          transition: "transform 0.6s",
         }}
       >
         {/* Front of card */}
@@ -58,19 +62,25 @@ const InnovativeCard: React.FC<InnovativeCardProps> = ({ title, description }) =
           className="absolute inset-0 w-full h-full rounded-xl overflow-hidden"
           style={{ backfaceVisibility: "hidden" }}
         >
-          <div className={`absolute inset-0 bg-gradient-to-br from-purple-600 via-pink-600 to-red-600 transition-opacity duration-500 ${isSparkleActive ? 'opacity-50' : 'opacity-100'}`} />
+          <div
+            className={`absolute inset-0 bg-gradient-to-br from-purple-600 via-pink-600 to-red-600 transition-opacity duration-500 ${
+              isSparkleActive ? "opacity-50" : "opacity-100"
+            }`}
+          />
           <div className="absolute inset-0 bg-black/30" />
-          <img
+          <Image
             src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=1000"
             alt="Fiesta"
             className="absolute inset-0 w-full h-full object-cover mix-blend-overlay"
+            layout="fill"
+            objectFit="cover"
           />
           <div className="absolute inset-0 p-6 flex flex-col justify-between">
             <div>
               <h2 className="text-3xl font-bold text-white mb-2">{title}</h2>
               <p className="text-lg text-white/80">{description}</p>
               {beerCount > 0 && (
-                <motion.div 
+                <motion.div
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   className="mt-2 bg-yellow-500/20 backdrop-blur-sm rounded-full px-3 py-1 inline-block"
@@ -94,12 +104,16 @@ const InnovativeCard: React.FC<InnovativeCardProps> = ({ title, description }) =
               whileHover={{ scale: 1.2 }}
               whileTap={{ scale: 0.9 }}
               className={`p-2 rounded-full transition-colors ${
-                isSparkleActive ? 'bg-yellow-500/50' : 'hover:bg-white/10'
+                isSparkleActive ? "bg-yellow-500/50" : "hover:bg-white/10"
               }`}
             >
-              <Sparkles className={`w-6 h-6 ${
-                isSparkleActive ? 'text-white animate-spin' : 'text-yellow-300 animate-pulse'
-              }`} />
+              <Sparkles
+                className={`w-6 h-6 ${
+                  isSparkleActive
+                    ? "text-white animate-spin"
+                    : "text-yellow-300 animate-pulse"
+                }`}
+              />
             </motion.button>
             <motion.button
               onClick={handleBeerClick}
@@ -121,8 +135,8 @@ const InnovativeCard: React.FC<InnovativeCardProps> = ({ title, description }) =
                   key={i}
                   className="absolute w-1 h-1 bg-yellow-300 rounded-full"
                   animate={{
-                    x: [Math.random() * 100 + '%', Math.random() * 100 + '%'],
-                    y: [Math.random() * 100 + '%', Math.random() * 100 + '%'],
+                    x: [Math.random() * 100 + "%", Math.random() * 100 + "%"],
+                    y: [Math.random() * 100 + "%", Math.random() * 100 + "%"],
                     scale: [0, 1, 0],
                   }}
                   transition={{
@@ -141,11 +155,13 @@ const InnovativeCard: React.FC<InnovativeCardProps> = ({ title, description }) =
           className="absolute inset-0 w-full h-full bg-gray-900 rounded-xl overflow-hidden flex items-center justify-center"
           style={{
             backfaceVisibility: "hidden",
-            transform: "rotateY(180deg)"
+            transform: "rotateY(180deg)",
           }}
         >
           <div className="text-center p-6">
-            <h3 className="text-2xl font-bold mb-4 text-white">¡A darle duro!</h3>
+            <h3 className="text-2xl font-bold mb-4 text-white">
+              ¡A darle duro!
+            </h3>
             <p className="text-gray-300 mb-6">
               Haz clic para volver al frente de la tarjeta y seguir la fiesta.
             </p>
@@ -166,8 +182,7 @@ const InnovativeCard: React.FC<InnovativeCardProps> = ({ title, description }) =
         </div>
       </motion.div>
     </div>
-  )
-}
+  );
+};
 
-export default InnovativeCard
-
+export default InnovativeCard;

@@ -1,7 +1,7 @@
 "use client"
 
 import React from 'react'
-import InnovativeCard from './components/InnovativeCard/page'
+import InnovativeCard from './components/InnovativeCard/innovativeCard'
 import ParticleBackground from './components/ParticleBackground/page'
 export default function Home() {
   return (
