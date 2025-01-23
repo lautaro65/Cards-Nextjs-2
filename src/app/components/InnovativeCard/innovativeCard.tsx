@@ -46,7 +46,7 @@ const InnovativeCard: React.FC<InnovativeCardProps> = ({
   return (
     <div className="w-full max-w-md mx-auto" style={{ perspective: "1000px" }}>
       <motion.div
-        className="relative w-full h-[400px] cursor-pointer card-container"
+        className="relative w-52 h-56 cursor-pointer card-container mx-auto"
         onClick={() => setIsFlipped(!isFlipped)}
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
@@ -77,8 +77,8 @@ const InnovativeCard: React.FC<InnovativeCardProps> = ({
           />
           <div className="absolute inset-0 p-6 flex flex-col justify-between">
             <div>
-              <h2 className="text-3xl font-bold text-white mb-2">{title}</h2>
-              <p className="text-lg text-white/80">{description}</p>
+              <h2 className="text-xl font-bold text-white mb-2">{title}</h2>
+              <p className="text-sm text-white/80">{description}</p>
               {beerCount > 0 && (
                 <motion.div
                   initial={{ scale: 0 }}
@@ -90,7 +90,7 @@ const InnovativeCard: React.FC<InnovativeCardProps> = ({
               )}
             </div>
             <motion.button
-              className="self-start px-4 py-2 bg-white/20 backdrop-blur-lg rounded-full text-white font-semibold flex items-center gap-2 hover:bg-white/30 transition-colors"
+              className="self-start px-4 py-2 bg-white/20 backdrop-blur-lg rounded-full text-sm text-white font-semibold flex items-center gap-2 hover:bg-white/30 transition-colors"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
